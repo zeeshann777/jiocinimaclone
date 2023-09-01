@@ -1,0 +1,31 @@
+body{
+    background-color: black;
+    color: white;
+}
+.position{
+     margin-left: 0%;
+    margin-top: 15%; 
+    text-align: center;
+}
+.phone{
+    margin-bottom: 10px;
+    /* margin-left: 18px; */
+    width: 25%;
+    height: 4%;
+    border-radius: 8px;
+    border: 0px;
+    background-color: transparent;
+    color: purple;
+}
+.btn{
+    /* margin-left: 18px; */
+    border-radius: 9px;
+    background-color: purple;
+    height: 7%;
+    width: 25%   
+}
+.con{
+    /* font-family: 'Times New Roman', Times, serif; */
+    font-family: Arial, Black;
+}
+
