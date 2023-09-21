@@ -2,6 +2,8 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
+
 
 class authentication
 {
@@ -11,6 +13,7 @@ class authentication
     this.firebaseConfig = {
     apiKey: "AIzaSyDymxLOvkzV9muJLm3HNPaO0S7xarpiGN4",
     authDomain: "jiocinemaclone.firebaseapp.com",
+    databaseURL: "https://jiocinemaclone-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "jiocinemaclone",
     storageBucket: "jiocinemaclone.appspot.com",
     messagingSenderId: "1067123666435",
