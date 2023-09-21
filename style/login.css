@@ -17,12 +17,12 @@ body{
     background-color: transparent;
     color: purple;
 }
-.btn{
+.btn {
     /* margin-left: 18px; */
     border-radius: 9px;
     background-color: purple;
-    height: 7%;
-    width: 25%   
+    height: 5%;
+    width: 6%   
 }
 .con{
     /* font-family: 'Times New Roman', Times, serif; */

@@ -1,7 +1,7 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
 
 class authentication
 {
@@ -19,11 +19,12 @@ class authentication
 
 // Initialize Firebase
     this.app = initializeApp(this.firebaseConfig);
+    
+    this.auth = getAuth();
     }
 
     login = (email, password) => {
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password)
+        signInWithEmailAndPassword(this.auth, email, password)
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
@@ -42,6 +43,28 @@ class authentication
                     alert("check your email and password")
                 }
             });
+    }
+
+    signin = (email,password)=>
+    {
+        createUserWithEmailAndPassword(this.auth, email, password).then((userCredential) => {
+        // Signed in 
+        const user = userCredential.user;
+        alert("login successfull");
+        // ...
+        }).catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            if(errorCode == "auth/network-request-failed")
+                {
+                    alert("check your network connection")
+                }
+                else
+                {
+                    alert("check your email and password")
+                }
+        // ..
+        });
     }
 }
 
