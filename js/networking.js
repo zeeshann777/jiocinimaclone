@@ -71,4 +71,53 @@ class authentication
     }
 }
 
-export {authentication}
+class database{
+    constructor()
+    {
+        this.firebaseConfig = {
+            apiKey: "AIzaSyDymxLOvkzV9muJLm3HNPaO0S7xarpiGN4",
+            authDomain: "jiocinemaclone.firebaseapp.com",
+            databaseURL: "https://jiocinemaclone-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "jiocinemaclone",
+            storageBucket: "jiocinemaclone.appspot.com",
+            messagingSenderId: "1067123666435",
+            appId: "1:1067123666435:web:587e43ebeb833ccbb66836"
+            };
+        
+        // Initialize Firebase
+            this.app = initializeApp(this.firebaseConfig);
+            this.dbRef = ref(getDatabase());
+            
+    }
+
+    getdata = ()=>{
+
+        return new Promise((resolve,reject)=>{
+            
+        get(child(this.dbRef, `Availableshows/Biggboss/Name`)).then((snapshot) => {
+            if (snapshot.exists()) {
+                var data = snapshot.val();  
+                resolve(data);
+            } else {
+              console.log("No data available");
+            }
+          }).catch((error) => {
+            reject(error);
+          });
+
+        });
+
+
+    }
+
+    test = ()=>{
+        return new Promise((resolve, reject)=>{
+            resolve("evething ok")
+            reject("something went wrong")
+        });
+    }
+
+    
+}
+
+export {authentication,database}
