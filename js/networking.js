@@ -109,15 +109,6 @@ class database{
 
 
     }
-
-    test = ()=>{
-        return new Promise((resolve, reject)=>{
-            resolve("evething ok")
-            reject("something went wrong")
-        });
-    }
-
-    
 }
 
 export {authentication,database}
