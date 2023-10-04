@@ -25,16 +25,30 @@ if(url.endsWith("login.html"))
 }
 
 else{
-    var names = ["Biggboss","match"];
-
-    names.forEach(element => {
-        db.getdata(element).then((resolve) => {
-            var b = document.getElementById(element);
-            b.innerHTML = resolve
-        }).catch((reject) =>{
-            console.log(reject);
-        });
-    });
+    db.getdata().then((resolve) => {
+                const shows = resolve;
+                // document.getElementById("Top_reated").innerHTML = resolve["Availableshows"]["Top_reated"]["Biggboss"]["Name"]
+                var names = Object.keys(resolve["Availableshows"]);
+                console.log(resolve)
+                names.forEach(element => {
+                    if(element == "Top_reated")
+                    {
+                        var shows = Object.keys(resolve["Availableshows"][element])
+                        console.log(shows)  
+                        document.getElementById(element).innerHTML = resolve["Availableshows"][element][shows[0]]["Name"]
+                    }
+                })
+            }).catch((reject) =>{
+                console.log(reject);
+            });
+    // names.forEach(element => {
+    //     db.getdata(element).then((resolve) => {
+    //         var b = document.getElementById(element);
+    //         b.innerHTML = resolve
+    //     }).catch((reject) =>{
+    //         console.log(reject);
+    //     });
+    // });
 }
 
 

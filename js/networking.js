@@ -90,11 +90,11 @@ class database{
             
     }
 
-    getdata = (name)=>{
+    getdata = ()=>{
 
         return new Promise((resolve,reject)=>{
             
-        get(child(this.dbRef, `Availableshows/`+name+`/Name`)).then((snapshot) => {
+        get(child(this.dbRef, `/`)).then((snapshot) => {
             if (snapshot.exists()) {
                 var data = snapshot.val();  
                 resolve(data);
