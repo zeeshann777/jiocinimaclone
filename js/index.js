@@ -41,14 +41,14 @@ else{
             }).catch((reject) =>{
                 console.log(reject);
             });
-    // names.forEach(element => {
-    //     db.getdata(element).then((resolve) => {
-    //         var b = document.getElementById(element);
-    //         b.innerHTML = resolve
-    //     }).catch((reject) =>{
-    //         console.log(reject);
-    //     });
-    // });
+
+    db.getstoreage().then((result)=>{
+        const img = document.getElementById("testimg"); 
+        console.log(result)
+        img.setAttribute('src',result)
+    }).catch(e=>{
+
+    });
 }
 
 

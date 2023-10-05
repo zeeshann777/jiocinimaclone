@@ -2,8 +2,9 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
 import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
-import { getDatabase, ref, child, get } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
+import { getDatabase, ref as dbref, child, get } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
 
+import { getStorage, ref as sref, listAll, getDownloadURL  } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
 
 class authentication
 {
@@ -86,7 +87,7 @@ class database{
         
         // Initialize Firebase
             this.app = initializeApp(this.firebaseConfig);
-            this.dbRef = ref(getDatabase());
+            this.dbRef = dbref(getDatabase());
             
     }
 
@@ -109,6 +110,40 @@ class database{
 
 
     }
+    getstoreage = () =>{
+        return new Promise((resolve,reject) => {
+        const storage = getStorage(this.app);
+        const imagesRef = sref(storage, 'test');
+        // Find all the prefixes and items.
+    listAll(imagesRef)
+    .then((res) => {
+    res.items.forEach((itemRef) => {
+        // All the items under listRef.
+        console.log(itemRef.fullPath)
+        getDownloadURL(sref(storage, itemRef.fullPath))
+  .then((url) => {
+    // `url` is the download URL for 'images/stars.jpg'
+
+    // This can be downloaded directly:
+    const xhr = new XMLHttpRequest();
+    xhr.responseType = 'blob';
+    xhr.onload = (event) => {
+      const blob = xhr.response;
+    };
+    xhr.open('GET', url);
+    xhr.send();
+    resolve(url)
+  })
+  .catch((error) => {
+    // Handle any errors
+  });
+    });
+    }).catch((error) => {
+    // Uh-oh, an error occurred!
+    });
+
+    }
+)}
 }
 
 export {authentication,database}
