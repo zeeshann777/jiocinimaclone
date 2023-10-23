@@ -92,11 +92,11 @@ body{
     width: 100%;
 }
 
-.everthing{
-    display: grid;
-}
 .one{
     visibility: hidden;
+    position: absolute;
+    top: 0%;
+    margin-top: 108px;
 }
 .col{
     display: flex;

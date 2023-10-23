@@ -1,30 +1,29 @@
 
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-app.js";
-import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword  } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
+import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-auth.js";
 import { getDatabase, ref as dbref, child, get } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-database.js";
 
-import { getStorage, ref as sref, listAll, getDownloadURL  } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
+import { getStorage, ref as sref, listAll, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.3.1/firebase-storage.js";
 
-class authentication
-{
-    constructor(){
+class authentication {
+    constructor() {
 
-// Your web app's Firebase configuration
-    this.firebaseConfig = {
-    apiKey: "AIzaSyDymxLOvkzV9muJLm3HNPaO0S7xarpiGN4",
-    authDomain: "jiocinemaclone.firebaseapp.com",
-    databaseURL: "https://jiocinemaclone-default-rtdb.asia-southeast1.firebasedatabase.app",
-    projectId: "jiocinemaclone",
-    storageBucket: "jiocinemaclone.appspot.com",
-    messagingSenderId: "1067123666435",
-    appId: "1:1067123666435:web:587e43ebeb833ccbb66836"
-    };
+        // Your web app's Firebase configuration
+        this.firebaseConfig = {
+            apiKey: "AIzaSyDymxLOvkzV9muJLm3HNPaO0S7xarpiGN4",
+            authDomain: "jiocinemaclone.firebaseapp.com",
+            databaseURL: "https://jiocinemaclone-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "jiocinemaclone",
+            storageBucket: "jiocinemaclone.appspot.com",
+            messagingSenderId: "1067123666435",
+            appId: "1:1067123666435:web:587e43ebeb833ccbb66836"
+        };
 
-// Initialize Firebase
-    this.app = initializeApp(this.firebaseConfig);
-    
-    this.auth = getAuth();
+        // Initialize Firebase
+        this.app = initializeApp(this.firebaseConfig);
+
+        this.auth = getAuth();
     }
 
     login = (email, password) => {
@@ -38,43 +37,37 @@ class authentication
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
-                if(errorCode == "auth/network-request-failed")
-                {
+                if (errorCode == "auth/network-request-failed") {
                     alert("check your network connection")
                 }
-                else
-                {
+                else {
                     alert("check your email and password")
                 }
             });
     }
 
-    signin = (email,password)=>
-    {
+    signin = (email, password) => {
         createUserWithEmailAndPassword(this.auth, email, password).then((userCredential) => {
-        // Signed in 
-        const user = userCredential.user;
-        alert("login successfull");
-        // ...
+            // Signed in 
+            const user = userCredential.user;
+            alert("login successfull");
+            // ...
         }).catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            if(errorCode == "auth/network-request-failed")
-                {
-                    alert("check your network connection")
-                }
-                else
-                {
-                    alert("check your email and password")
-                }
-        // ..
+            if (errorCode == "auth/network-request-failed") {
+                alert("check your network connection")
+            }
+            else {
+                alert("check your email and password")
+            }
+            // ..
         });
     }
 }
 
-class database{
-    constructor()
-    {
+class database {
+    constructor() {
         this.firebaseConfig = {
             apiKey: "AIzaSyDymxLOvkzV9muJLm3HNPaO0S7xarpiGN4",
             authDomain: "jiocinemaclone.firebaseapp.com",
@@ -83,67 +76,71 @@ class database{
             storageBucket: "jiocinemaclone.appspot.com",
             messagingSenderId: "1067123666435",
             appId: "1:1067123666435:web:587e43ebeb833ccbb66836"
-            };
-        
+        };
+
         // Initialize Firebase
-            this.app = initializeApp(this.firebaseConfig);
-            this.dbRef = dbref(getDatabase());
-            
+        this.app = initializeApp(this.firebaseConfig);
+        this.dbRef = dbref(getDatabase());
+
     }
 
-    getdata = ()=>{
+    getdata = () => {
 
-        return new Promise((resolve,reject)=>{
-            
-        get(child(this.dbRef, `/`)).then((snapshot) => {
-            if (snapshot.exists()) {
-                var data = snapshot.val();  
-                resolve(data);
-            } else {
-              console.log("No data available");
-            }
-          }).catch((error) => {
-            reject(error);
-          });
+        return new Promise((resolve, reject) => {
+
+            get(child(this.dbRef, `/`)).then((snapshot) => {
+                if (snapshot.exists()) {
+                    var data = snapshot.val();
+                    resolve(data);
+                } else {
+                    console.log("No data available");
+                }
+            }).catch((error) => {
+                reject(error);
+            });
 
         });
 
 
     }
-    getstoreage = () =>{
-        return new Promise((resolve,reject) => {
-        const storage = getStorage(this.app);
-        const imagesRef = sref(storage, 'test');
-        // Find all the prefixes and items.
-    listAll(imagesRef)
-    .then((res) => {
-    res.items.forEach((itemRef) => {
-        // All the items under listRef.
-        console.log(itemRef.fullPath)
-        getDownloadURL(sref(storage, itemRef.fullPath))
-  .then((url) => {
-    // `url` is the download URL for 'images/stars.jpg'
-
-    // This can be downloaded directly:
-    const xhr = new XMLHttpRequest();
-    xhr.responseType = 'blob';
-    xhr.onload = (event) => {
-      const blob = xhr.response;
+    getStorage = (path) => {
+        return new Promise((resolve, reject) => {
+            const storage = getStorage(this.app);
+            const imagesRef = sref(storage, path);
+            const imgurl = [];
+    
+            listAll(imagesRef)
+                .then((res) => {
+                    const downloadPromises = res.items.map((itemRef) => {
+                        return getDownloadURL(sref(storage, itemRef.fullPath))
+                            .then((url) => {
+                                imgurl.push(url);
+                            })
+                            .catch((error) => {
+                                // Handle any errors
+                                console.error('Error getting download URL:', error);
+                            });
+                    });
+    
+                    // Use Promise.all to wait for all download promises to resolve
+                    Promise.all(downloadPromises)
+                        .then(() => {
+                            resolve(imgurl);
+                        })
+                        .catch((error) => {
+                            // Handle any errors from download promises
+                            console.error('Error fetching download URLs:', error);
+                            reject(error);
+                        });
+                })
+                .catch((error) => {
+                    // Handle any errors from listAll
+                    console.error('Error listing items:', error);
+                    reject(error);
+                });
+        });
     };
-    xhr.open('GET', url);
-    xhr.send();
-    resolve(url)
-  })
-  .catch((error) => {
-    // Handle any errors
-  });
-    });
-    }).catch((error) => {
-    // Uh-oh, an error occurred!
-    });
-
-    }
-)}
+    
 }
 
-export {authentication,database}
+export { authentication, database }

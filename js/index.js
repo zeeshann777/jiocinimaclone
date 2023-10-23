@@ -42,12 +42,21 @@ else{
                 console.log(reject);
             });
 
-    db.getstoreage().then((result)=>{
-        const img = document.getElementById("testimg"); 
-        console.log(result)
+    db.getStorage("test").then((result)=>{
+        const img = document.getElementById("testimg");
         img.setAttribute('src',result)
     }).catch(e=>{
 
+    });
+    db.getStorage("biggest_reality_shows").then((result) => {
+        const reality_shows = document.getElementById("biggest_reality_shows").children;
+        for(var i = 0; i<reality_shows.length; i++)
+        {
+            reality_shows[i].src = result[i];
+        }
+        // reality_shows.forEach(e=>{
+        //     console.log(e)
+        // })
     });
 }
 
