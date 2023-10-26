@@ -31,14 +31,14 @@ class authentication {
             .then((userCredential) => {
                 // Signed in 
                 const user = userCredential.user;
-                alert("login successfull");
+                window.location.href = "http://127.0.0.1:5500/jc.html";
                 // ...
             })
             .catch((error) => {
                 const errorCode = error.code;
                 const errorMessage = error.message;
                 if (errorCode == "auth/network-request-failed") {
-                    alert("check your network connection")
+                    alert("check your network connection");
                 }
                 else {
                     alert("check your email and password")

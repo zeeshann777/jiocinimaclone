@@ -22,9 +22,12 @@ if(url.endsWith("login.html"))
         const password = document.getElementById("password").value;
         nk.signin(email,password);
     });
+
+    
 }
 
 else{
+    // this is show availabe shows top rated 
     db.getdata().then((resolve) => {
                 const shows = resolve;
                 // document.getElementById("Top_reated").innerHTML = resolve["Availableshows"]["Top_reated"]["Biggboss"]["Name"]
@@ -42,23 +45,53 @@ else{
                 console.log(reject);
             });
 
+        { 
+        var clickcout = 0;
+        var one = document.getElementById("img1").children;
+        document.getElementById("rightbtn").addEventListener("click", () => {
+            
+            one[clickcout + 1].style.visibility = "visible";
+            one[clickcout].style.visibility = "hidden";
+            clickcout +=1;
+        })
+        } 
+    
+        { 
+            one = document.getElementById("img1").children
+            document.getElementById("leftbtn").addEventListener("click", () => {
+                
+                console.log(clickcout)
+                one[clickcout].style.visibility = "hidden";
+                one[clickcout-1].style.visibility = "visible";
+                clickcout -=1;
+        })
+        } 
+    //this is for big boss image
     db.getStorage("test").then((result)=>{
         const img = document.getElementById("testimg");
-        img.setAttribute('src',result)
+        img.setAttribute('src',result);
     }).catch(e=>{
 
     });
+    
+    // this is for biggest reality shows
     db.getStorage("biggest_reality_shows").then((result) => {
         const reality_shows = document.getElementById("biggest_reality_shows").children;
         for(var i = 0; i<reality_shows.length; i++)
         {
             reality_shows[i].src = result[i];
         }
-        // reality_shows.forEach(e=>{
-        //     console.log(e)
-        // })
+    });
+    
+    // this is for top hollywood movies
+    db.getStorage("Top_Hollywood_Movies").then((result) => {
+        const hollywood_movies = document.getElementById("Top_Hollywood_Movies").children;
+        for(var i = 0; i<hollywood_movies.length; i++)
+        {
+            hollywood_movies[i].src = result[i];
+        }
     });
 }
 
-
+    
 

@@ -106,7 +106,7 @@ body{
     position: inherit;
     display: flex;
     flex-direction: row;
-    gap: 25%;
+    gap: 5%;
 }
 .watchbtn{
     border-radius: 8px;
