@@ -28,6 +28,12 @@ if(url.endsWith("login.html"))
 
 else{
     // this is show availabe shows top rated 
+    
+    var one = document.getElementById("img1").children;
+    // image
+    console.log(one[0].children[0].children[1]);
+    //text
+    console.log(one[0].children[0].children[0].children[0].children[1])
     db.getdata().then((resolve) => {
                 const shows = resolve;
                 // document.getElementById("Top_reated").innerHTML = resolve["Availableshows"]["Top_reated"]["Biggboss"]["Name"]
@@ -37,8 +43,12 @@ else{
                     if(element == "Top_reated")
                     {
                         var shows = Object.keys(resolve["Availableshows"][element])
-                        console.log(shows)  
-                        document.getElementById(element).innerHTML = resolve["Availableshows"][element][shows[0]]["Name"]
+                        console.log(shows) 
+                        for (let index = 0; index < 2; index++) {
+                            
+                            one[index].children[0].children[0].children[0].children[0].innerHTML = resolve["Availableshows"][element][shows[index]]["Name"]    
+                        } 
+                        
                     }
                 })
             }).catch((reject) =>{
@@ -47,7 +57,6 @@ else{
 
         { 
         var clickcout = 0;
-        var one = document.getElementById("img1").children;
         document.getElementById("rightbtn").addEventListener("click", () => {
             
             one[clickcout + 1].style.visibility = "visible";
@@ -57,7 +66,6 @@ else{
         } 
     
         { 
-            one = document.getElementById("img1").children
             document.getElementById("leftbtn").addEventListener("click", () => {
                 
                 console.log(clickcout)
